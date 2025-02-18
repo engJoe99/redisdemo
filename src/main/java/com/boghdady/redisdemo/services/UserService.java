@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +23,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    @Cacheable(value = "user", key = "#id")
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Cacheable(value = "users", key = "#id")
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
